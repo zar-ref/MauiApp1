@@ -12,6 +12,7 @@ public partial class MainPage : ContentPage
         _accountRepository = accountRepository;
         InitializeComponent();
         GetAccounts();
+
     }
 
     private void AddAccountClicked(object sender, EventArgs e)
