@@ -12,6 +12,18 @@ public partial class MainPage : ContentPage
         _accountRepository = accountRepository;
         InitializeComponent();
         GetAccounts();
+        MessagingCenter.Subscribe<object, string>(this, "FromService", async (sender, args) =>
+        {
+            await Task.Delay(5000);
+            //var account = new Account()
+            //{
+            //    CreationDate = DateTime.Now,
+            //    Name = "name"
+            //};
+            //_accountRepository.CreateAccount(account);
+            //GetAccounts();
+            //await Task.Delay(10000);
+        });
 
     }
 
