@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace MauiApp1.Platforms.Android.Services
 {
+    //tutorial: https://stackoverflow.com/questions/57036530/bad-notification-for-startforeground-in-android-app
     [Service]
     public class BackgroundService : Service, IBackgroundService
     {
