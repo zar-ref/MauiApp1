@@ -1,13 +1,17 @@
-﻿using Android.App;
-using Android.Content;
-using Android.OS;
-using AndroidX.Core.App;
+﻿using Android.Net;
+using global::Android.App;
+using global::Android.Content;
+using global::Android.OS;
+using global::AndroidX.Core.App;
+using MauiApp1.Platforms.Android.BroadcastReceivers;
 using MauiApp1.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Android.App.Job;
+using MauiApp1.Platforms.Android.JobServices;
 
 namespace MauiApp1.Platforms.Android.Services
 {
@@ -19,7 +23,6 @@ namespace MauiApp1.Platforms.Android.Services
         public override void OnCreate()
         {
             base.OnCreate();
-
         }
 
         public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
@@ -36,7 +39,7 @@ namespace MauiApp1.Platforms.Android.Services
                 NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
 
                 BuildStartServiceAction();
-                var notification =notificationBuilder
+                var notification = notificationBuilder
                       .SetContentTitle("test")
                       .SetContentText("test")
                       .SetSmallIcon(Resource.Drawable.notification_icon_background)
@@ -83,17 +86,36 @@ namespace MauiApp1.Platforms.Android.Services
             return builder.Build();
 
         }
-  
+
     }
 
     public static class randomc2
     {
-        public static void MyOnCreate(Activity activity, Bundle bundle)
+        public static void MyOnCreate(Activity activity)
         {
-            Intent startServiceIntent = new Intent(activity, typeof(BackgroundService));
-            startServiceIntent.SetAction("START");
-            activity.StartService(startServiceIntent);
+            //InternetBroadcastReceiver receiver = new InternetBroadcastReceiver();
+            //activity.RegisterReceiver(receiver, new IntentFilter(ConnectivityManager.ConnectivityAction));
+            //Intent startServiceIntent = new Intent(activity, typeof(BackgroundService));
+            //startServiceIntent.SetAction("START");
+            //activity.StartService(startServiceIntent);
+
+
+            //https://github.com/xamarin/monodroid-samples/blob/main/android5.0/JobScheduler/JobScheduler/MainActivity.cs
+            //https://medium.com/@prakharsrivastava_219/schedule-your-task-for-internet-and-relax-b98e5fdb77fa
+
+            var js = (JobScheduler)activity.GetSystemService(Context.JobSchedulerService);
+            js.CancelAll();
+            ComponentName jobService = new ComponentName(activity, Java.Lang.Class.FromType(typeof(InternetJobService)).Name);
+
+            var jobInfoBuilder = new JobInfo.Builder(1, jobService).SetRequiredNetworkType(NetworkType.Any);
+            var jobInfo = jobInfoBuilder.Build();
+            var result = js.Schedule(jobInfo);
+            if(result == JobScheduler.ResultSuccess)
+            {
+
+            }
         }
+
     }
 
 

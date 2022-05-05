@@ -16,8 +16,9 @@ public static class MauiProgram
                  events.AddAndroid(android => android
                     .OnCreate((activity, bundle) =>
                     {
-                        randomc2.MyOnCreate(activity, bundle);
-                    }));
+                        randomc2.MyOnCreate(activity);
+                        //var jc = (JobSchedulerType)GetSystemService(activity.JobSchedulerService);
+                    }).OnResume((activity) => { randomc2.MyOnCreate(activity); }));
 #endif
              })
             .ConfigureFonts(fonts =>
