@@ -18,7 +18,13 @@ public static class MauiProgram
                     {
                         randomc2.MyOnCreate(activity);
                         //var jc = (JobSchedulerType)GetSystemService(activity.JobSchedulerService);
-                    }).OnResume((activity) => { randomc2.MyOnCreate(activity); }));
+                    })
+                    .OnResume((actvity) =>
+                    {
+
+                    }))
+                    //.OnResume((activity) => { randomc2.MyOnCreate(activity); }))
+                 ;
 #endif
              })
             .ConfigureFonts(fonts =>

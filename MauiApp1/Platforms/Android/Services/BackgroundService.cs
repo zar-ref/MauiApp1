@@ -108,11 +108,10 @@ namespace MauiApp1.Platforms.Android.Services
             ComponentName jobService = new ComponentName(activity, Java.Lang.Class.FromType(typeof(InternetJobService)).Name);
 
             var jobInfoBuilder = new JobInfo.Builder(1, jobService).SetRequiredNetworkType(NetworkType.Any);
-            var jobInfo = jobInfoBuilder.Build();
+            var jobInfo = jobInfoBuilder.SetPersisted(true).SetMinimumLatency(50).Build(); 
             var result = js.Schedule(jobInfo);
             if(result == JobScheduler.ResultSuccess)
-            {
-
+            { 
             }
         }
 

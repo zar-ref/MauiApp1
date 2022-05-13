@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Android.App.Job;
 using Android.OS;
+using Android.Widget;
 using AndroidX.Core.App;
 using global::Android.App;
 using global::Android.Content;
@@ -12,18 +13,19 @@ using global::Android.Net;
 using MauiApp1.Platforms.Android.Services;
 
 namespace MauiApp1.Platforms.Android.JobServices
-{
-    [Service(Exported = true, Permission = "android.permission.BIND_JOB_SERVICE")]
+{ 
+    [Service(Exported = true, Permission =  "android.permission.BIND_JOB_SERVICE") ]
     public class InternetJobService : JobService
     {
         //https://docs.microsoft.com/en-us/xamarin/android/platform/android-job-scheduler
         //https://stackoverflow.com/questions/50137936/can-i-send-notification-using-job-scheduler
         //https://medium.com/@prakharsrivastava_219/schedule-your-task-for-internet-and-relax-b98e5fdb77fa
-
+        //https://stackoverflow.com/questions/39310407/android-jobscheduler-using-setminimumlatency-with-setperiodic
         public override bool OnStartJob(JobParameters @params)
         {
-            CreateNotificationChannel();
-
+            //CreateNotificationChannel();
+            Toast.MakeText(this, "Executed", ToastLength.Long).Show();
+            JobFinished(@params, true);
             return true;
         }
 
