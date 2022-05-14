@@ -114,7 +114,15 @@ namespace MauiApp1.Platforms.Android.Services
             if(result == JobScheduler.ResultSuccess)
             { 
             }
-             
+            //Intent intent = new Intent(activity,typeof(Activity));
+            //intent.SetFlags(ActivityFlags.NewTask | ActivityFlags.ClearTask);
+            //PendingIntent pendingIntent = PendingIntent.GetActivity(activity, 0, intent, PendingIntentFlags.Immutable);
+
+            //String NOTIFICATION_CHANNEL_ID = "com.Your.project.id";
+            //NotificationChannel chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "Your Channel Name", NotificationImportance.High);
+            //NotificationManager manager = ContextWrapper.GetSystemService(Context.NotificationService) as NotificationManager;
+            //manager.CreateNotificationChannel(chan);
+
         }
 
         private static void RegisterServices(Context contextIn)

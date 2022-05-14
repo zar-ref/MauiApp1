@@ -13,8 +13,8 @@ using global::Android.Net;
 using MauiApp1.Platforms.Android.Services;
 
 namespace MauiApp1.Platforms.Android.JobServices
-{ 
-    [Service(Exported = true, Permission =  "android.permission.BIND_JOB_SERVICE") ]
+{
+    [Service(Exported = true, Permission = "android.permission.BIND_JOB_SERVICE")]
     public class InternetJobService : JobService
     {
         //https://docs.microsoft.com/en-us/xamarin/android/platform/android-job-scheduler
@@ -26,6 +26,7 @@ namespace MauiApp1.Platforms.Android.JobServices
         {
             //CreateNotificationChannel();
             Toast.MakeText(this, "Executed", ToastLength.Long).Show();
+            CreateNotificationChannel();
             JobFinished(@params, true);
             return true;
         }
@@ -38,7 +39,9 @@ namespace MauiApp1.Platforms.Android.JobServices
         PendingIntent BuildIntentToShowMainActivity()
         {
             var notificationIntent = new Intent(this, typeof(MainActivity));
-            var pendingIntent = PendingIntent.GetActivity(this, 0, notificationIntent, PendingIntentFlags.UpdateCurrent);
+            notificationIntent.SetFlags(ActivityFlags.NewTask | ActivityFlags.ClearTask);
+            var pendingIntent = PendingIntent.GetActivity(this, 0, notificationIntent, PendingIntentFlags.Immutable);
+
             return pendingIntent;
         }
 
@@ -54,18 +57,21 @@ namespace MauiApp1.Platforms.Android.JobServices
 
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
 
+
+            var pendingIntent = BuildIntentToShowMainActivity();
             var notification = notificationBuilder
-                  .SetContentTitle("test")
-                  .SetContentText("test")
-                  .SetSmallIcon(Resource.Drawable.notification_icon_background)
-                  .SetContentIntent(BuildIntentToShowMainActivity())
-                  //.SetOngoing(true) 
-                  //.AddAction(BuildStopServiceAction())
-                  .Build();
+              .SetContentTitle("test")
+              .SetContentText("test")
+              .SetSmallIcon(Resource.Drawable.notification_icon_background)
+              .SetContentIntent(pendingIntent)
+              .SetAutoCancel(true)
+              //.SetOngoing(true) 
+              //.AddAction(BuildStopServiceAction())
+              .Build();
 
             manager.Notify(11000, notification);
         }
-}
+    }
 
     public static class JobSchedulerHelpers
     {
