@@ -13,10 +13,8 @@ using System.Threading.Tasks;
 namespace MauiApp1.Platforms.Android.BroadcastReceivers
 {
 
-    [BroadcastReceiver(Name = "com.myapp.whatever.InternetBroadcastReceiver", Enabled = true)]
-    //[IntentFilter(new[] { Intent.ActionBootCompleted })]
-    //[BroadcastReceiver(Enabled = true, Permission = Manifest.Permission.ReceiveBootCompleted)]
-    //[IntentFilter(new[] { Intent.ActionBootCompleted }, Priority = (int)IntentFilterPriority.HighPriority, Categories = new[] { Intent.CategoryDefault })]
+    //https://stackoverflow.com/questions/44383983/how-to-programmatically-enable-auto-start-and-floating-window-permissions
+    [BroadcastReceiver(Name = "com.myapp.whatever.InternetBroadcastReceiver", Enabled = true, DirectBootAware = true, Exported = true)]
 
     public class InternetBroadcastReceiver : BroadcastReceiver
     {
@@ -35,7 +33,7 @@ namespace MauiApp1.Platforms.Android.BroadcastReceivers
                 Intent activityIntent = new Intent(context, typeof(MainActivity));
                 activityIntent.AddFlags(ActivityFlags.NewTask);
                 context.StartActivity(activityIntent);
-            
+
 
             }
 

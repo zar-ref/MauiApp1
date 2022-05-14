@@ -12,30 +12,20 @@ public partial class MainPage : ContentPage
         _accountRepository = accountRepository;
         InitializeComponent();
         GetAccounts();
-        MessagingCenter.Subscribe<object, string>(this, "FromService", async (sender, args) =>
-        {
-            await Task.Delay(5000);
-            //var account = new Account()
-            //{
-            //    CreationDate = DateTime.Now,
-            //    Name = "name"
-            //};
-            //_accountRepository.CreateAccount(account);
-            //GetAccounts();
-            //await Task.Delay(10000);
-        });
+
 
     }
 
     private void AddAccountClicked(object sender, EventArgs e)
     {
-        var account = new Account()
-        {
-            CreationDate = DateTime.Now,
-            Name = "name"
-        };
-        _accountRepository.CreateAccount(account);
-        GetAccounts();
+        MessagingCenter.Send<object>(this, "AutoStartMessage");
+        //var account = new Account()
+        //{
+        //    CreationDate = DateTime.Now,
+        //    Name = "name"
+        //};
+        //_accountRepository.CreateAccount(account);
+        //GetAccounts();
     }
 
     private void UpdateAccountClicked(object sender, EventArgs e)

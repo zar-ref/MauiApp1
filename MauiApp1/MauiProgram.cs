@@ -1,6 +1,9 @@
 ﻿using MauiApp1.SqliteRepository.Repositories;
 using Microsoft.Maui.LifecycleEvents;
 using MauiApp1.Platforms.Android.Services;
+using Android.Content;
+using Android.Content.PM;
+
 namespace MauiApp1;
 
 public static class MauiProgram
@@ -18,12 +21,29 @@ public static class MauiProgram
                     {
                         randomc2.MyOnCreate(activity);
                         //var jc = (JobSchedulerType)GetSystemService(activity.JobSchedulerService);
+
+
+                        MessagingCenter.Subscribe<object>(activity, "AutoStartMessage", (sender) =>
+                        {
+                            var manufacturer = Android.OS.Build.Manufacturer;
+                            Intent intent = new Intent();
+                            intent.SetComponent(new ComponentName("com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity"));
+                            try
+                            {
+                                intent.AddFlags(ActivityFlags.NewTask);
+                                Android.App.Application.Context.StartActivity(intent);
+                            }
+                            catch (Exception ex)
+                            {
+
+                            }
+                        });
                     })
                     .OnResume((actvity) =>
                     {
 
                     }))
-                    //.OnResume((activity) => { randomc2.MyOnCreate(activity); }))
+                 //.OnResume((activity) => { randomc2.MyOnCreate(activity); }))
                  ;
 #endif
              })
@@ -37,4 +57,6 @@ public static class MauiProgram
 
         return builder.Build();
     }
+
+
 }

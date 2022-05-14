@@ -114,6 +114,7 @@ namespace MauiApp1.Platforms.Android.Services
             if(result == JobScheduler.ResultSuccess)
             { 
             }
+             
         }
 
         private static void RegisterServices(Context contextIn)
