@@ -13,17 +13,19 @@ public partial class MainPage : ContentPage
         InitializeComponent();
         GetAccounts();
 
+
     }
 
     private void AddAccountClicked(object sender, EventArgs e)
     {
-        var account = new Account()
-        {
-            CreationDate = DateTime.Now,
-            Name = "name"
-        };
-        _accountRepository.CreateAccount(account);
-        GetAccounts();
+        MessagingCenter.Send<object>(this, "AutoStartMessage");
+        //var account = new Account()
+        //{
+        //    CreationDate = DateTime.Now,
+        //    Name = "name"
+        //};
+        //_accountRepository.CreateAccount(account);
+        //GetAccounts();
     }
 
     private void UpdateAccountClicked(object sender, EventArgs e)
