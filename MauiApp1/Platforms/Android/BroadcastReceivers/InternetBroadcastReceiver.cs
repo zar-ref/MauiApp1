@@ -14,7 +14,7 @@ namespace MauiApp1.Platforms.Android.BroadcastReceivers
 {
 
     [BroadcastReceiver(Name = "com.myapp.whatever.InternetBroadcastReceiver", Enabled = true)]
-    [IntentFilter(new[] { Intent.ActionBootCompleted })]
+    //[IntentFilter(new[] { Intent.ActionBootCompleted })]
     //[BroadcastReceiver(Enabled = true, Permission = Manifest.Permission.ReceiveBootCompleted)]
     //[IntentFilter(new[] { Intent.ActionBootCompleted }, Priority = (int)IntentFilterPriority.HighPriority, Categories = new[] { Intent.CategoryDefault })]
 

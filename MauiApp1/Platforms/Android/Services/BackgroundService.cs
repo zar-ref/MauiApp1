@@ -91,6 +91,7 @@ namespace MauiApp1.Platforms.Android.Services
 
     public static class randomc2
     {
+        private static bool ReceiversRegistered = false;
         public static void MyOnCreate(Activity activity)
         {
             //InternetBroadcastReceiver receiver = new InternetBroadcastReceiver();
@@ -102,7 +103,7 @@ namespace MauiApp1.Platforms.Android.Services
 
             //https://github.com/xamarin/monodroid-samples/blob/main/android5.0/JobScheduler/JobScheduler/MainActivity.cs
             //https://medium.com/@prakharsrivastava_219/schedule-your-task-for-internet-and-relax-b98e5fdb77fa
-
+            RegisterServices(activity);
             var js = (JobScheduler)activity.GetSystemService(Context.JobSchedulerService);
             js.CancelAll();
             ComponentName jobService = new ComponentName(activity, Java.Lang.Class.FromType(typeof(InternetJobService)).Name);
@@ -113,6 +114,16 @@ namespace MauiApp1.Platforms.Android.Services
             if(result == JobScheduler.ResultSuccess)
             { 
             }
+        }
+
+        private static void RegisterServices(Context contextIn)
+        {
+            if (ReceiversRegistered)
+                return;
+            Context context = contextIn.ApplicationContext;
+            var receiver = new InternetBroadcastReceiver();
+            context.RegisterReceiver(receiver , new IntentFilter(Intent.ActionBootCompleted));
+            ReceiversRegistered = true;
         }
 
     }
