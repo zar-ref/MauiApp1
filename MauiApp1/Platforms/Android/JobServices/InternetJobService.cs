@@ -20,7 +20,8 @@ namespace MauiApp1.Platforms.Android.JobServices
         //https://docs.microsoft.com/en-us/xamarin/android/platform/android-job-scheduler
         //https://stackoverflow.com/questions/50137936/can-i-send-notification-using-job-scheduler
         //https://medium.com/@prakharsrivastava_219/schedule-your-task-for-internet-and-relax-b98e5fdb77fa
-        //https://stackoverflow.com/questions/39310407/android-jobscheduler-using-setminimumlatency-with-setperiodic
+        //https://stackoverflow.com/questions/39310407/android-jobscheduler-using-setminimumlatency-with-setperiodic --usefull
+        //https://stackoverflow.com/questions/33740266/run-code-once-after-each-boot-on-android for tomorrow
         public override bool OnStartJob(JobParameters @params)
         {
             //CreateNotificationChannel();
