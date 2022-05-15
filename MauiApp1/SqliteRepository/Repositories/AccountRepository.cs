@@ -8,6 +8,7 @@ using SQLite;
 
 namespace MauiApp1.SqliteRepository.Repositories
 {
+    //https://vladislavantonyuk.azurewebsites.net/articles/Adding-SQLite-to-the-.NET-MAUI-application?fbclid=IwAR2z3cc_CkedHxnjm9VWwPA8t8Y_T7711NvxdjF5iAkVQiMaTyhmkQG0IdE
     public class AccountRepository
     {
         private readonly SQLiteConnection _database;
@@ -40,6 +41,6 @@ namespace MauiApp1.SqliteRepository.Repositories
             return _database.Delete(account);
         }
 
-       
+
     }
 }
